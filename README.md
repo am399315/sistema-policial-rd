@@ -20,6 +20,7 @@ Desarrollado como **proyecto académico de examen final** para la materia de Dis
 ---
 
 ## 🖥️ Capturas de Pantalla
+![alt text "inicio"](image.png)
 
 ```
 Login → Dashboard → Módulos → Chat → Estadísticas

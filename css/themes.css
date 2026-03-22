@@ -1,0 +1,322 @@
+/* ================================================
+   SISTEMA POLICIAL RD — themes.css
+   Variables de color para modo oscuro y claro
+================================================ */
+
+
+/* ================================================
+   TEMA OSCURO (por defecto)
+================================================ */
+.theme-dark {
+  /* Fondos */
+  --color-bg-primary:    #0a0e1a;
+  --color-bg-secondary:  #0d1220;
+  --color-surface:       #111827;
+  --color-surface-2:     #1a2235;
+  --color-sidebar:       #0d1220;
+  --color-titlebar:      #080c18;
+
+  /* Texto */
+  --color-text:          #e2e8f0;
+  --color-text-muted:    #64748b;
+  --color-text-subtle:   #475569;
+
+  /* Acento principal (azul policial) */
+  --color-accent:        #3b82f6;
+  --color-accent-hover:  #2563eb;
+  --color-accent-subtle: rgba(59, 130, 246, 0.1);
+  --color-accent-glow:   rgba(59, 130, 246, 0.2);
+
+  /* Estados */
+  --color-danger:        #ef4444;
+  --color-danger-subtle: rgba(239, 68, 68, 0.1);
+  --color-success:       #22c55e;
+  --color-warning:       #f59e0b;
+  --color-info:          #3b82f6;
+
+  /* Bordes e inputs */
+  --color-border:        #1e2d3d;
+  --color-input-bg:      #0d1220;
+  --color-hover:         rgba(255, 255, 255, 0.04);
+
+  /* Decorativos */
+  --color-grid-line:     rgba(59, 130, 246, 0.08);
+  --color-glow:          rgba(59, 130, 246, 0.06);
+
+  /* Scrollbar */
+  --color-scrollbar:     #1e2d3d;
+
+  /* Sombras */
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* Scrollbar en tema oscuro */
+.theme-dark ::-webkit-scrollbar-thumb {
+  background-color: #1e2d3d;
+}
+
+.theme-dark ::-webkit-scrollbar-thumb:hover {
+  background-color: #2d3f52;
+}
+
+
+/* ================================================
+   TEMA CLARO
+================================================ */
+.theme-light {
+  /* Fondos */
+  --color-bg-primary:    #f1f5f9;
+  --color-bg-secondary:  #e8eef5;
+  --color-surface:       #ffffff;
+  --color-surface-2:     #f8fafc;
+  --color-sidebar:       #1e293b;
+  --color-titlebar:      #0f172a;
+
+  /* Texto */
+  --color-text:          #0f172a;
+  --color-text-muted:    #64748b;
+  --color-text-subtle:   #94a3b8;
+
+  /* Acento principal */
+  --color-accent:        #1d4ed8;
+  --color-accent-hover:  #1e40af;
+  --color-accent-subtle: rgba(29, 78, 216, 0.08);
+  --color-accent-glow:   rgba(29, 78, 216, 0.15);
+
+  /* Estados */
+  --color-danger:        #dc2626;
+  --color-danger-subtle: rgba(220, 38, 38, 0.08);
+  --color-success:       #16a34a;
+  --color-warning:       #d97706;
+  --color-info:          #1d4ed8;
+
+  /* Bordes e inputs */
+  --color-border:        #e2e8f0;
+  --color-input-bg:      #f8fafc;
+  --color-hover:         rgba(0, 0, 0, 0.03);
+
+  /* Decorativos */
+  --color-grid-line:     rgba(29, 78, 216, 0.06);
+  --color-glow:          rgba(29, 78, 216, 0.04);
+
+  /* Scrollbar */
+  --color-scrollbar:     #cbd5e1;
+
+  /* Sombras */
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* En tema claro el sidebar es oscuro para contraste policial */
+.theme-light .sidebar {
+  background-color: #1e293b;
+  border-right-color: #334155;
+}
+
+.theme-light .sidebar__brand-name {
+  color: #f1f5f9;
+}
+
+.theme-light .sidebar__brand-sub,
+.theme-light .sidebar__user-name,
+.theme-light .sidebar__user-role,
+.theme-light .nav-btn,
+.theme-light .sidebar__footer .nav-btn {
+  color: #94a3b8;
+}
+
+.theme-light .sidebar__user-name {
+  color: #e2e8f0;
+}
+
+.theme-light .nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #f1f5f9;
+}
+
+.theme-light .nav-btn--active {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+.theme-light .sidebar__header,
+.theme-light .sidebar__user,
+.theme-light .sidebar__footer {
+  border-color: #334155;
+}
+
+.theme-light .sidebar__collapse {
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+.theme-light .sidebar__collapse:hover {
+  background-color: rgba(255,255,255,0.06);
+  color: #f1f5f9;
+}
+
+.theme-light .sidebar__user-avatar {
+  background-color: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.theme-light .nav-btn--danger {
+  color: #f87171;
+}
+
+.theme-light .nav-btn--danger:hover {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+}
+
+/* Scrollbar en tema claro */
+.theme-light ::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+}
+
+.theme-light ::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+/* Titlebar en tema claro */
+.theme-light .titlebar {
+  background-color: #0f172a;
+  border-bottom-color: #1e293b;
+}
+
+.theme-light .titlebar__title {
+  color: #94a3b8;
+}
+
+.theme-light .titlebar__btn {
+  color: #94a3b8;
+}
+
+.theme-light .titlebar__btn:hover {
+  background-color: rgba(255,255,255,0.06);
+  color: #f1f5f9;
+}
+
+.theme-light .titlebar__btn--lang,
+.theme-light .titlebar__btn--theme {
+  border-right-color: #1e293b;
+}
+
+
+/* ================================================
+   ESTILOS ESPECÍFICOS DEL MAPA DE RIESGO
+================================================ */
+.mapa-container {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  height: 420px;
+}
+
+.mapa-rd {
+  width: 100%;
+  height: 100%;
+}
+
+.mapa-zona {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.mapa-zona:hover {
+  opacity: 0.8;
+}
+
+.mapa-zona--alto    { fill: #ef4444; }
+.mapa-zona--medio   { fill: #f59e0b; }
+.mapa-zona--bajo    { fill: #22c55e; }
+.mapa-zona--critico { fill: #7c3aed; }
+
+.mapa-leyenda {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mapa-leyenda__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+.mapa-leyenda__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+
+/* ================================================
+   ESTILOS DE GRÁFICAS (Chart.js overrides)
+================================================ */
+.chart-container {
+  position: relative;
+  width: 100%;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.chart-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.chart-legend__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+
+/* ================================================
+   ACCESIBILIDAD — Alto contraste
+================================================ */
+@media (prefers-contrast: high) {
+  .theme-dark {
+    --color-border: #334155;
+    --color-text-muted: #94a3b8;
+  }
+
+  .theme-light {
+    --color-border: #94a3b8;
+    --color-text-muted: #334155;
+  }
+}
+
+/* Reducir movimiento para usuarios con preferencia */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

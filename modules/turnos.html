@@ -1,0 +1,453 @@
+<!-- ================================================
+     MÓDULO: TURNOS Y HORARIOS
+================================================ -->
+
+<div class="modulo-turnos animate-fadeIn">
+
+  <!-- Barra de herramientas -->
+  <div class="turnos-toolbar">
+
+    <!-- Navegación de semana -->
+    <div class="semana-nav" role="navigation" aria-label="Navegación de semana">
+      <button class="btn btn--ghost btn--sm" id="btn-semana-anterior" aria-label="Semana anterior">◀ Anterior</button>
+      <div class="semana-actual">
+        <span class="semana-actual__icon" aria-hidden="true">📅</span>
+        <span id="semana-label" class="semana-actual__label">Semana actual</span>
+      </div>
+      <button class="btn btn--ghost btn--sm" id="btn-semana-siguiente" aria-label="Semana siguiente">Siguiente ▶</button>
+    </div>
+
+    <!-- Vista y acciones -->
+    <div style="display:flex; gap:0.5rem; align-items:center;">
+      <div class="vista-tabs" role="group" aria-label="Tipo de vista">
+        <button class="vista-tab vista-tab--activo" data-vista="semana" aria-pressed="true">Semana</button>
+        <button class="vista-tab" data-vista="turno" aria-pressed="false">Por Turno</button>
+        <button class="vista-tab" data-vista="zona" aria-pressed="false">Por Zona</button>
+      </div>
+      <button class="btn btn--primary btn--sm" id="btn-nuevo-turno" aria-label="Asignar nuevo turno">
+        ➕ Asignar Turno
+      </button>
+    </div>
+
+  </div>
+
+
+  <!-- Resumen de turnos -->
+  <div class="grid-3 mt-md mb-md">
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">🌅</div>
+      <div class="stat-card__value" id="count-manana">0</div>
+      <div class="stat-card__label">Turno Mañana</div>
+      <div class="stat-card__trend" style="color: #f59e0b;">6:00 AM — 2:00 PM</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">🌤️</div>
+      <div class="stat-card__value" id="count-tarde">0</div>
+      <div class="stat-card__label">Turno Tarde</div>
+      <div class="stat-card__trend" style="color: #3b82f6;">2:00 PM — 10:00 PM</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">🌙</div>
+      <div class="stat-card__value" id="count-noche">0</div>
+      <div class="stat-card__label">Turno Noche</div>
+      <div class="stat-card__trend" style="color: #8b5cf6;">10:00 PM — 6:00 AM</div>
+    </div>
+  </div>
+
+
+  <!-- Vista: Calendario semanal -->
+  <div id="vista-semana" class="vista-contenido">
+    <div class="card">
+      <div class="card__header">
+        <div class="card__title">Calendario Semanal de Turnos</div>
+        <div class="card__subtitle" id="rango-semana">—</div>
+      </div>
+      <div class="calendario-semana" id="calendario-semana" role="grid" aria-label="Calendario de turnos semanal">
+        <!-- Se llena con JavaScript -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Vista: Por Turno -->
+  <div id="vista-turno" class="vista-contenido" hidden style="display:none;">
+    <div class="grid-3">
+
+      <!-- Turno Mañana -->
+      <div class="card turno-card turno-card--manana">
+        <div class="card__header">
+          <div>
+            <div class="card__title">🌅 Turno Mañana</div>
+            <div class="card__subtitle">6:00 AM — 2:00 PM</div>
+          </div>
+          <span class="badge badge--warning" id="badge-manana">0 oficiales</span>
+        </div>
+        <div id="lista-turno-manana" class="turno-lista" role="list" aria-label="Oficiales en turno mañana">
+          <!-- Se llena con JavaScript -->
+        </div>
+      </div>
+
+      <!-- Turno Tarde -->
+      <div class="card turno-card turno-card--tarde">
+        <div class="card__header">
+          <div>
+            <div class="card__title">🌤️ Turno Tarde</div>
+            <div class="card__subtitle">2:00 PM — 10:00 PM</div>
+          </div>
+          <span class="badge badge--info" id="badge-tarde">0 oficiales</span>
+        </div>
+        <div id="lista-turno-tarde" class="turno-lista" role="list" aria-label="Oficiales en turno tarde">
+          <!-- Se llena con JavaScript -->
+        </div>
+      </div>
+
+      <!-- Turno Noche -->
+      <div class="card turno-card turno-card--noche">
+        <div class="card__header">
+          <div>
+            <div class="card__title">🌙 Turno Noche</div>
+            <div class="card__subtitle">10:00 PM — 6:00 AM</div>
+          </div>
+          <span class="badge badge--neutral" id="badge-noche">0 oficiales</span>
+        </div>
+        <div id="lista-turno-noche" class="turno-lista" role="list" aria-label="Oficiales en turno noche">
+          <!-- Se llena con JavaScript -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Vista: Por Zona -->
+  <div id="vista-zona" class="vista-contenido" hidden style="display:none;">
+    <div class="card">
+      <div class="card__header">
+        <div class="card__title">Distribución por Zona Geográfica</div>
+        <div class="card__subtitle">Cobertura de patrullas esta semana</div>
+      </div>
+      <div id="zonas-cobertura" class="zonas-grid" role="list" aria-label="Cobertura por zonas">
+        <!-- Se llena con JavaScript -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<style>
+  /* ===== TOOLBAR ===== */
+  .turnos-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .semana-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .semana-actual {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    min-width: 220px;
+    justify-content: center;
+  }
+
+  .semana-actual__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  /* ===== TABS DE VISTA ===== */
+  .vista-tabs {
+    display: flex;
+    background-color: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .vista-tab {
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .vista-tab--activo {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  /* ===== CALENDARIO SEMANAL ===== */
+  .calendario-semana {
+    overflow-x: auto;
+  }
+
+  .calendario-grid {
+    display: grid;
+    grid-template-columns: 120px repeat(7, 1fr);
+    min-width: 700px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* Encabezados de días */
+  .cal-dia-header {
+    padding: 0.6rem 0.5rem;
+    text-align: center;
+    background-color: var(--color-surface-2);
+    border-bottom: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .cal-dia-header:last-child { border-right: none; }
+
+  .cal-dia-header__nombre {
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.68rem;
+  }
+
+  .cal-dia-header__numero {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-top: 2px;
+  }
+
+  .cal-dia-header--hoy {
+    background-color: var(--color-accent-subtle);
+  }
+
+  .cal-dia-header--hoy .cal-dia-header__numero {
+    color: var(--color-accent);
+  }
+
+  /* Etiquetas de turno */
+  .cal-turno-label {
+    padding: 0.5rem 0.75rem;
+    background-color: var(--color-surface-2);
+    border-bottom: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cal-turno-label__nombre {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .cal-turno-label__hora {
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+  }
+
+  /* Celdas del calendario */
+  .cal-celda {
+    padding: 0.4rem;
+    border-bottom: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    min-height: 70px;
+    vertical-align: top;
+    position: relative;
+  }
+
+  .cal-celda:last-child { border-right: none; }
+
+  .cal-celda--manana { background-color: rgba(245, 158, 11, 0.03); }
+  .cal-celda--tarde  { background-color: rgba(59, 130, 246, 0.03); }
+  .cal-celda--noche  { background-color: rgba(139, 92, 246, 0.03); }
+
+  /* Chips de oficiales en el calendario */
+  .cal-oficial-chip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    margin-bottom: 3px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cal-oficial-chip:hover { opacity: 0.8; }
+
+  .cal-oficial-chip--manana {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: #b45309;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+
+  .cal-oficial-chip--tarde {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #1d4ed8;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  .cal-oficial-chip--noche {
+    background-color: rgba(139, 92, 246, 0.15);
+    color: #6d28d9;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+  }
+
+  [data-theme="dark"] .cal-oficial-chip--manana { color: #fcd34d; }
+  [data-theme="dark"] .cal-oficial-chip--tarde  { color: #93c5fd; }
+  [data-theme="dark"] .cal-oficial-chip--noche  { color: #c4b5fd; }
+
+  /* ===== VISTA POR TURNO ===== */
+  .turno-card {
+    border-top: 3px solid transparent;
+  }
+
+  .turno-card--manana { border-top-color: #f59e0b; }
+  .turno-card--tarde  { border-top-color: #3b82f6; }
+  .turno-card--noche  { border-top-color: #8b5cf6; }
+
+  .turno-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .turno-oficial-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    background-color: var(--color-surface-2);
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    transition: all 0.15s;
+  }
+
+  .turno-oficial-item:hover {
+    border-color: var(--color-accent);
+    transform: translateX(3px);
+  }
+
+  .turno-oficial-avatar {
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-accent-subtle);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .turno-oficial-info { flex: 1; min-width: 0; }
+
+  .turno-oficial-nombre {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .turno-oficial-zona {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin-top: 1px;
+  }
+
+  .turno-oficial-estado {
+    flex-shrink: 0;
+  }
+
+  /* ===== VISTA POR ZONA ===== */
+  .zonas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .zona-cobertura-card {
+    background-color: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1rem;
+    transition: all 0.2s;
+  }
+
+  .zona-cobertura-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .zona-cobertura-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .zona-cobertura-nombre {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .zona-cobertura-barra-wrap {
+    background-color: var(--color-border);
+    border-radius: 4px;
+    height: 6px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+  }
+
+  .zona-cobertura-barra {
+    height: 100%;
+    border-radius: 4px;
+    background-color: var(--color-accent);
+    transition: width 0.5s ease;
+  }
+
+  .zona-cobertura-info {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ===== VISTA CONTENIDO ===== */
+  .vista-contenido { animation: fadeIn 0.3s ease; }
+</style>

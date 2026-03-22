@@ -1,0 +1,475 @@
+<!-- ================================================
+     MÓDULO: PANEL DE ESTADÍSTICAS AVANZADAS
+================================================ -->
+
+<div class="modulo-estadisticas animate-fadeIn">
+
+  <!-- ===== ENCABEZADO ===== -->
+  <div class="stats-header">
+    <div>
+      <p class="stats-header__periodo" id="stats-periodo">Enero 2025</p>
+    </div>
+    <div style="display:flex; gap:0.5rem; align-items:center;">
+      <select class="form-input form-select" id="stats-periodo-select"
+              style="width:160px; height:34px; font-size:0.82rem;"
+              aria-label="Seleccionar período">
+        <option value="mes">Este mes</option>
+        <option value="trimestre">Este trimestre</option>
+        <option value="anio">Este año</option>
+      </select>
+      <button class="btn btn--primary btn--sm" id="btn-actualizar-stats"
+              aria-label="Actualizar estadísticas">
+        🔄 Actualizar
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ===== KPIs PRINCIPALES ===== -->
+  <div class="kpi-grid" role="list" aria-label="Indicadores clave de rendimiento">
+
+    <div class="kpi-card" role="listitem" aria-label="Tasa de resolución de casos">
+      <div class="kpi-card__header">
+        <span class="kpi-card__icono" aria-hidden="true">✅</span>
+        <span class="kpi-card__semaforo" id="sem-resolucion" aria-hidden="true"></span>
+      </div>
+      <div class="kpi-card__valor" id="kpi-resolucion">0%</div>
+      <div class="kpi-card__label">Tasa de Resolución</div>
+      <div class="kpi-card__meta" id="meta-resolucion">Meta: 75%</div>
+      <div class="kpi-card__barra-wrap" aria-hidden="true">
+        <div class="kpi-card__barra" id="barra-resolucion" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="kpi-card" role="listitem" aria-label="Tiempo promedio de respuesta">
+      <div class="kpi-card__header">
+        <span class="kpi-card__icono" aria-hidden="true">⚡</span>
+        <span class="kpi-card__semaforo" id="sem-respuesta" aria-hidden="true"></span>
+      </div>
+      <div class="kpi-card__valor" id="kpi-respuesta">0 min</div>
+      <div class="kpi-card__label">Tiempo de Respuesta</div>
+      <div class="kpi-card__meta" id="meta-respuesta">Meta: &lt;8 min</div>
+      <div class="kpi-card__barra-wrap" aria-hidden="true">
+        <div class="kpi-card__barra" id="barra-respuesta" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="kpi-card" role="listitem" aria-label="Cobertura de patrullaje">
+      <div class="kpi-card__header">
+        <span class="kpi-card__icono" aria-hidden="true">🚔</span>
+        <span class="kpi-card__semaforo" id="sem-cobertura" aria-hidden="true"></span>
+      </div>
+      <div class="kpi-card__valor" id="kpi-cobertura">0%</div>
+      <div class="kpi-card__label">Cobertura de Zonas</div>
+      <div class="kpi-card__meta" id="meta-cobertura">Meta: 90%</div>
+      <div class="kpi-card__barra-wrap" aria-hidden="true">
+        <div class="kpi-card__barra" id="barra-cobertura" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="kpi-card" role="listitem" aria-label="Incidentes resueltos">
+      <div class="kpi-card__header">
+        <span class="kpi-card__icono" aria-hidden="true">🛡️</span>
+        <span class="kpi-card__semaforo" id="sem-incidentes" aria-hidden="true"></span>
+      </div>
+      <div class="kpi-card__valor" id="kpi-incidentes">0%</div>
+      <div class="kpi-card__label">Incidentes Resueltos</div>
+      <div class="kpi-card__meta" id="meta-incidentes">Meta: 80%</div>
+      <div class="kpi-card__barra-wrap" aria-hidden="true">
+        <div class="kpi-card__barra" id="barra-incidentes" style="width:0%"></div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ===== GRÁFICAS PRINCIPALES ===== -->
+  <div class="grid-2 mt-md mb-md">
+
+    <!-- Tendencia anual -->
+    <div class="card">
+      <div class="card__header">
+        <div>
+          <div class="card__title">📈 Tendencia Anual de Casos</div>
+          <div class="card__subtitle">Comparativa mensual 2024 vs 2025</div>
+        </div>
+      </div>
+      <div class="chart-legend" id="legend-tendencia"></div>
+      <div class="chart-container" style="height:220px;">
+        <canvas id="chart-tendencia" role="img" aria-label="Gráfica de tendencia anual de casos"></canvas>
+      </div>
+    </div>
+
+    <!-- Radar de tipos de delito -->
+    <div class="card">
+      <div class="card__header">
+        <div>
+          <div class="card__title">🕸️ Radar de Categorías</div>
+          <div class="card__subtitle">Distribución por tipo de delito</div>
+        </div>
+      </div>
+      <div class="chart-container" style="height:220px;">
+        <canvas id="chart-radar" role="img" aria-label="Gráfica radar de tipos de delito"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ===== TOP ZONAS + TERMÓMETRO ===== -->
+  <div class="grid-2 mb-md" style="grid-template-columns: 1fr 280px;">
+
+    <!-- Top 5 zonas más peligrosas -->
+    <div class="card">
+      <div class="card__header">
+        <div>
+          <div class="card__title">🏆 Top 5 Zonas Más Peligrosas</div>
+          <div class="card__subtitle">Por número de incidentes registrados</div>
+        </div>
+        <span class="badge badge--danger">Actualizado hoy</span>
+      </div>
+      <div id="top-zonas" role="list" aria-label="Top 5 zonas más peligrosas">
+        <!-- Se llena con JavaScript -->
+      </div>
+    </div>
+
+    <!-- Termómetro de nivel de alerta -->
+    <div class="card">
+      <div class="card__header">
+        <div class="card__title">🌡️ Nivel de Alerta</div>
+        <div class="card__subtitle">Estado general del sistema</div>
+      </div>
+      <div class="termometro-container" aria-label="Termómetro de nivel de alerta">
+        <div class="termometro" role="meter" id="termometro"
+             aria-valuemin="0" aria-valuemax="100"
+             aria-valuenow="0" aria-label="Nivel de alerta">
+          <div class="termometro__relleno" id="termometro-relleno"></div>
+          <div class="termometro__marcas" aria-hidden="true">
+            <span>100</span>
+            <span>75</span>
+            <span>50</span>
+            <span>25</span>
+            <span>0</span>
+          </div>
+        </div>
+        <div class="termometro__info">
+          <div class="termometro__valor" id="termometro-valor">0</div>
+          <div class="termometro__label" id="termometro-label">Calculando...</div>
+          <div class="termometro__niveles" aria-hidden="true">
+            <div class="termometro__nivel"><span style="color:#ef4444;">■</span> Crítico (75-100)</div>
+            <div class="termometro__nivel"><span style="color:#f59e0b;">■</span> Alto (50-74)</div>
+            <div class="termometro__nivel"><span style="color:#3b82f6;">■</span> Medio (25-49)</div>
+            <div class="termometro__nivel"><span style="color:#22c55e;">■</span> Bajo (0-24)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ===== COMPARATIVA MENSUAL ===== -->
+  <div class="card mb-md">
+    <div class="card__header">
+      <div>
+        <div class="card__title">📊 Comparativa Mensual Detallada</div>
+        <div class="card__subtitle">Últimos 6 meses — Casos, Detenidos e Incidentes</div>
+      </div>
+    </div>
+    <div class="chart-container" style="height:200px;">
+      <canvas id="chart-comparativa" role="img" aria-label="Gráfica comparativa mensual"></canvas>
+    </div>
+  </div>
+
+
+  <!-- ===== TABLA DE RENDIMIENTO POR UNIDAD ===== -->
+  <div class="card">
+    <div class="card__header">
+      <div>
+        <div class="card__title">👮 Rendimiento por Unidad</div>
+        <div class="card__subtitle">Evaluación de desempeño por patrulla</div>
+      </div>
+    </div>
+    <div class="data-table-wrap">
+      <table class="data-table" role="grid" aria-label="Tabla de rendimiento por unidad">
+        <thead>
+          <tr>
+            <th scope="col">Unidad</th>
+            <th scope="col">Zona</th>
+            <th scope="col">Casos Atendidos</th>
+            <th scope="col">Incidentes</th>
+            <th scope="col">Tiempo Resp.</th>
+            <th scope="col">Calificación</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-rendimiento">
+          <!-- Se llena con JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+
+<style>
+  /* ===== ENCABEZADO ===== */
+  .stats-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .stats-header__titulo {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .stats-header__periodo {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+  }
+
+  /* ===== KPI CARDS ===== */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .kpi-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--color-accent);
+    border-radius: 12px 12px 0 0;
+  }
+
+  .kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .kpi-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .kpi-card__icono { font-size: 1.3rem; }
+
+  /* Semáforo */
+  .kpi-card__semaforo {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .semaforo-verde   { background-color: #22c55e; box-shadow: 0 0 8px #22c55e; }
+  .semaforo-amarillo{ background-color: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+  .semaforo-rojo    { background-color: #ef4444; box-shadow: 0 0 8px #ef4444; }
+
+  .kpi-card__valor {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .kpi-card__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.3rem;
+  }
+
+  .kpi-card__meta {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .kpi-card__barra-wrap {
+    height: 4px;
+    background-color: var(--color-surface-2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .kpi-card__barra {
+    height: 100%;
+    border-radius: 2px;
+    background-color: var(--color-accent);
+    transition: width 1s ease;
+  }
+
+
+  /* ===== TOP ZONAS ===== */
+  .top-zona-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .top-zona-item:last-child { border-bottom: none; }
+
+  .top-zona-item__posicion {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .top-zona-item__posicion--1 { color: #ef4444; }
+  .top-zona-item__posicion--2 { color: #f59e0b; }
+  .top-zona-item__posicion--3 { color: #3b82f6; }
+  .top-zona-item__posicion--4 { color: #8b5cf6; }
+  .top-zona-item__posicion--5 { color: #22c55e; }
+
+  .top-zona-item__info { flex: 1; }
+
+  .top-zona-item__nombre {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .top-zona-item__barra-wrap {
+    height: 4px;
+    background-color: var(--color-surface-2);
+    border-radius: 2px;
+    margin-top: 4px;
+    overflow: hidden;
+  }
+
+  .top-zona-item__barra {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  .top-zona-item__count {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    flex-shrink: 0;
+  }
+
+
+  /* ===== TERMÓMETRO ===== */
+  .termometro-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.5rem 0;
+    justify-content: center;
+  }
+
+  .termometro {
+    position: relative;
+    width: 40px;
+    height: 180px;
+    background-color: var(--color-surface-2);
+    border-radius: 20px;
+    border: 2px solid var(--color-border);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .termometro__relleno {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 20px;
+    transition: height 1.2s ease, background-color 0.5s ease;
+  }
+
+  .termometro__marcas {
+    position: absolute;
+    right: -30px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    padding: 2px 0;
+  }
+
+  .termometro__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .termometro__valor {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1;
+  }
+
+  .termometro__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .termometro__niveles {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-top: 0.5rem;
+  }
+
+  .termometro__nivel {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+
+  /* ===== TABLA RENDIMIENTO ===== */
+  .calificacion-stars {
+    display: flex;
+    gap: 2px;
+    font-size: 0.8rem;
+  }
+
+  .star-llena  { color: #f59e0b; }
+  .star-vacia  { color: var(--color-border); }
+</style>

@@ -1,0 +1,160 @@
+<!-- ================================================
+     MÓDULO: DASHBOARD
+     Panel principal con estadísticas en tiempo real
+================================================ -->
+
+<div class="dashboard animate-fadeIn">
+
+  <!-- Tarjetas de estadísticas -->
+  <div class="grid-4 mb-lg">
+
+    <div class="stat-card" role="region" aria-label="Casos activos">
+      <div class="stat-card__icon" aria-hidden="true">📁</div>
+      <div class="stat-card__value" id="stat-casos">—</div>
+      <div class="stat-card__label" data-i18n="dash.casos_activos">Casos Activos</div>
+      <div class="stat-card__trend stat-card__trend--up">↑ 8% este mes</div>
+    </div>
+
+    <div class="stat-card" role="region" aria-label="Detenidos hoy">
+      <div class="stat-card__icon" aria-hidden="true">👤</div>
+      <div class="stat-card__value" id="stat-detenidos">—</div>
+      <div class="stat-card__label" data-i18n="dash.detenidos_hoy">Detenidos Hoy</div>
+      <div class="stat-card__trend stat-card__trend--down">↓ 2 vs ayer</div>
+    </div>
+
+    <div class="stat-card" role="region" aria-label="Patrullas activas">
+      <div class="stat-card__icon" aria-hidden="true">🚔</div>
+      <div class="stat-card__value" id="stat-patrullas">—</div>
+      <div class="stat-card__label" data-i18n="dash.patrullas_activas">Patrullas Activas</div>
+      <div class="stat-card__trend stat-card__trend--up">↑ 2 en servicio</div>
+    </div>
+
+    <div class="stat-card" role="region" aria-label="Incidentes hoy">
+      <div class="stat-card__icon" aria-hidden="true">⚠️</div>
+      <div class="stat-card__value" id="stat-incidentes">—</div>
+      <div class="stat-card__label" data-i18n="dash.incidentes_hoy">Incidentes Hoy</div>
+      <div class="stat-card__trend stat-card__trend--up">↑ 3 vs ayer</div>
+    </div>
+
+  </div>
+
+
+  <!-- Gráficas -->
+  <div class="grid-2 mb-lg">
+
+    <!-- Casos por mes -->
+    <div class="card">
+      <div class="card__header">
+        <div>
+          <div class="card__title" data-i18n="dash.casos_mes">Casos por Mes</div>
+          <div class="card__subtitle">Últimos 6 meses</div>
+        </div>
+        <span class="badge badge--info">2025</span>
+      </div>
+      <div class="chart-container" style="height: 220px;">
+        <canvas id="chart-casos" role="img" aria-label="Gráfica de casos por mes"></canvas>
+      </div>
+    </div>
+
+    <!-- Tipos de delitos -->
+    <div class="card">
+      <div class="card__header">
+        <div>
+          <div class="card__title" data-i18n="dash.tipos_delitos">Tipos de Delitos</div>
+          <div class="card__subtitle">Distribución actual</div>
+        </div>
+        <span class="badge badge--warning">Live</span>
+      </div>
+      <div class="chart-container" style="height: 220px;">
+        <canvas id="chart-delitos" role="img" aria-label="Gráfica de tipos de delitos"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Actividad reciente y Alertas -->
+  <div class="grid-2">
+
+    <!-- Actividad reciente -->
+    <div class="card">
+      <div class="card__header">
+        <div>
+          <div class="card__title" data-i18n="dash.actividad_reciente">Actividad Reciente</div>
+          <div class="card__subtitle">Últimas acciones del sistema</div>
+        </div>
+        <button class="btn btn--sm btn--ghost" onclick="cargarModulo('casos')" aria-label="Ver todos los casos">
+          Ver todos →
+        </button>
+      </div>
+      <div id="actividad-lista" role="feed" aria-label="Lista de actividad reciente">
+        <!-- Se llena con JavaScript -->
+      </div>
+    </div>
+
+    <!-- Alertas activas -->
+    <div class="card">
+      <div class="card__header">
+        <div>
+          <div class="card__title" data-i18n="dash.alertas">Alertas Activas</div>
+          <div class="card__subtitle">Zonas que requieren atención</div>
+        </div>
+        <button class="btn btn--sm btn--ghost" onclick="cargarModulo('mapa')" aria-label="Ver mapa de riesgo">
+          Ver mapa →
+        </button>
+      </div>
+      <div id="alertas-lista" role="list" aria-label="Lista de alertas activas">
+        <!-- Se llena con JavaScript -->
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<style>
+  /* Estilos del dashboard */
+  .actividad-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .actividad-item:last-child { border-bottom: none; }
+  .actividad-item__icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+  .actividad-item__content { flex: 1; }
+  .actividad-item__texto {
+    font-size: 0.82rem;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+  .actividad-item__tiempo {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+  }
+
+  .alerta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .alerta-item:last-child { border-bottom: none; }
+  .alerta-item__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .alerta-item--critico .alerta-item__dot { background: #7c3aed; box-shadow: 0 0 6px #7c3aed; }
+  .alerta-item--alto    .alerta-item__dot { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+  .alerta-item--medio   .alerta-item__dot { background: #f59e0b; }
+  .alerta-item__texto {
+    flex: 1;
+    font-size: 0.82rem;
+    color: var(--color-text);
+  }
+</style>

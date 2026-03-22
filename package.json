@@ -1,0 +1,16 @@
+{
+  "name": "sistema-policial-rd",
+  "version": "1.0.0",
+  "description": "Sistema de Gestión Policial - Policía Nacional República Dominicana",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64"
+  },
+  "keywords": ["policia", "gestion", "rd"],
+  "author": "Proyecto Académico - IGUII",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}

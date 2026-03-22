@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:;" />
+  <title>Sistema Policial RD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/themes.css" />
+</head>
+<body class="theme-dark" id="app-body">
+
+  <!-- ============================================
+       BARRA DE TÍTULO PERSONALIZADA
+  ============================================ -->
+  <div class="titlebar" id="titlebar">
+    <div class="titlebar__left">
+      <div class="titlebar__logo" aria-hidden="true">🚔</div>
+      <span class="titlebar__title" id="titlebar-title">Sistema Policial — Policía Nacional RD</span>
+    </div>
+    <div class="titlebar__controls" role="group" aria-label="Controles de ventana">
+      <button class="titlebar__btn titlebar__btn--lang" id="btn-lang" title="Cambiar idioma / Change language" aria-label="Cambiar idioma">
+        <span id="lang-indicator">ES</span>
+      </button>
+      <button class="titlebar__btn titlebar__btn--theme" id="btn-theme" title="Cambiar tema" aria-label="Cambiar tema">
+        <span id="theme-icon">☀️</span>
+      </button>
+      <button class="titlebar__btn titlebar__btn--min" id="btn-minimize" title="Minimizar" aria-label="Minimizar ventana">─</button>
+      <button class="titlebar__btn titlebar__btn--max" id="btn-maximize" title="Maximizar" aria-label="Maximizar ventana">□</button>
+      <button class="titlebar__btn titlebar__btn--close" id="btn-close" title="Cerrar" aria-label="Cerrar aplicación">✕</button>
+    </div>
+  </div>
+
+
+  <!-- ============================================
+       PANTALLA DE LOGIN
+  ============================================ -->
+  <div class="login-screen" id="login-screen" role="main" aria-label="Pantalla de inicio de sesión">
+    <div class="login-bg" aria-hidden="true">
+      <div class="login-bg__grid"></div>
+      <div class="login-bg__glow"></div>
+    </div>
+
+    <div class="login-card" role="form" aria-labelledby="login-title">
+
+      <!-- Logo e identidad -->
+      <div class="login-card__header">
+        <div class="login-card__emblem" aria-hidden="true">
+          <div class="emblem-ring">
+            <span class="emblem-icon">🚔</span>
+          </div>
+        </div>
+        <h1 class="login-card__title" id="login-title" data-i18n="login.title">
+          Policía Nacional
+        </h1>
+        <p class="login-card__subtitle" data-i18n="login.subtitle">
+          República Dominicana
+        </p>
+        <p class="login-card__system" data-i18n="login.system">
+          Sistema de Gestión Policial
+        </p>
+      </div>
+
+      <!-- Formulario -->
+      <div class="login-card__form">
+
+        <div class="form-group">
+          <label for="login-user" class="form-label" data-i18n="login.badge">
+            Número de Placa
+          </label>
+          <div class="input-wrap">
+            <span class="input-wrap__icon" aria-hidden="true">🪪</span>
+            <input
+              type="text"
+              id="login-user"
+              class="form-input"
+              placeholder="PN-00000"
+              autocomplete="username"
+              aria-required="true"
+              aria-describedby="login-user-hint"
+            />
+          </div>
+          <span id="login-user-hint" class="form-hint" data-i18n="login.badge_hint">
+            Formato: PN-XXXXX
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="login-pass" class="form-label" data-i18n="login.password">
+            Contraseña
+          </label>
+          <div class="input-wrap">
+            <span class="input-wrap__icon" aria-hidden="true">🔒</span>
+            <input
+              type="password"
+              id="login-pass"
+              class="form-input"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              aria-required="true"
+            />
+            <button class="input-wrap__toggle" id="toggle-pass" aria-label="Mostrar contraseña" type="button">
+              👁
+            </button>
+          </div>
+        </div>
+
+        <!-- Selector de rol -->
+        <div class="form-group">
+          <label for="login-role" class="form-label" data-i18n="login.role">
+            Rol / Unidad
+          </label>
+          <select id="login-role" class="form-input form-select" aria-required="true">
+            <option value="admin" data-i18n="login.role_admin">Administrador General</option>
+            <option value="detective" data-i18n="login.role_detective">Detective / Investigador</option>
+            <option value="oficial" data-i18n="login.role_oficial">Oficial de Patrulla</option>
+            <option value="analista" data-i18n="login.role_analista">Analista de Datos</option>
+          </select>
+        </div>
+
+        <!-- Error message -->
+        <div class="login-error" id="login-error" role="alert" aria-live="polite" hidden>
+          <span aria-hidden="true">⚠️</span>
+          <span id="login-error-msg" data-i18n="login.error">Credenciales incorrectas</span>
+        </div>
+
+        <button class="btn btn--primary btn--full" id="btn-login" type="button" aria-label="Iniciar sesión">
+          <span data-i18n="login.btn">Acceder al Sistema</span>
+          <span class="btn__arrow" aria-hidden="true">→</span>
+        </button>
+
+        <p class="login-card__hint" data-i18n="login.demo_hint">
+          Demo: cualquier placa + contraseña de 4+ caracteres
+        </p>
+      </div>
+
+      <!-- Footer del login -->
+      <div class="login-card__footer">
+        <span data-i18n="login.version">v1.0.0 — Uso Oficial</span>
+        <span>© 2025 PNRD</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================
+       APLICACIÓN PRINCIPAL (oculta hasta login)
+  ============================================ -->
+  <div class="app-shell" id="app-shell" hidden aria-label="Aplicación principal">
+
+    <!-- SIDEBAR DE NAVEGACIÓN -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Menú principal">
+
+      <!-- Logo en sidebar -->
+      <div class="sidebar__header">
+        <div class="sidebar__logo" aria-hidden="true">🚔</div>
+        <div class="sidebar__brand">
+          <span class="sidebar__brand-name" data-i18n="app.name">Policía Nacional</span>
+          <span class="sidebar__brand-sub" data-i18n="app.country">República Dominicana</span>
+        </div>
+        <button class="sidebar__collapse" id="btn-collapse" aria-label="Colapsar menú" title="Colapsar menú">
+          ◀
+        </button>
+      </div>
+
+      <!-- Info del usuario -->
+      <div class="sidebar__user" role="status" aria-label="Usuario activo">
+        <div class="sidebar__user-avatar" id="user-avatar" aria-hidden="true">👮</div>
+        <div class="sidebar__user-info">
+          <span class="sidebar__user-name" id="user-name">Agente</span>
+          <span class="sidebar__user-role" id="user-role">—</span>
+        </div>
+        <div class="sidebar__user-status" aria-label="Estado: En línea">
+          <span class="status-dot status-dot--online" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <!-- Menú de navegación -->
+      <nav class="sidebar__nav" aria-label="Módulos del sistema">
+        <ul class="nav-list" role="list">
+
+          <li class="nav-item">
+            <button class="nav-btn nav-btn--active" data-module="dashboard" aria-current="page" role="menuitem">
+              <span class="nav-btn__icon" aria-hidden="true">📊</span>
+              <span class="nav-btn__text" data-i18n="nav.dashboard">Dashboard</span>
+              <span class="nav-btn__badge" id="badge-dashboard" hidden></span>
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-btn" data-module="casos" role="menuitem">
+              <span class="nav-btn__icon" aria-hidden="true">📁</span>
+              <span class="nav-btn__text" data-i18n="nav.casos">Gestión de Casos</span>
+              <span class="nav-btn__badge" id="badge-casos">12</span>
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-btn" data-module="detenidos" role="menuitem">
+              <span class="nav-btn__icon" aria-hidden="true">👤</span>
+              <span class="nav-btn__text" data-i18n="nav.detenidos">Detenidos & Ficheros</span>
+              <span class="nav-btn__badge" id="badge-detenidos">5</span>
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-btn" data-module="patrullas" role="menuitem">
+              <span class="nav-btn__icon" aria-hidden="true">🚔</span>
+              <span class="nav-btn__text" data-i18n="nav.patrullas">Patrullas & Personal</span>
+              <span class="nav-btn__badge" id="badge-patrullas" hidden></span>
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-btn" data-module="mapa" role="menuitem">
+              <span class="nav-btn__icon" aria-hidden="true">🗺️</span>
+              <span class="nav-btn__text" data-i18n="nav.mapa">Mapa de Riesgo</span>
+              <span class="nav-btn__badge nav-btn__badge--alert" id="badge-mapa">3</span>
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-btn" data-module="incidentes" role="menuitem">
+              <span class="nav-btn__icon" aria-hidden="true">⚠️</span>
+              <span class="nav-btn__text" data-i18n="nav.incidentes">Incidentes</span>
+              <span class="nav-btn__badge nav-btn__badge--alert" id="badge-incidentes">7</span>
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-btn" data-module="estadisticas" role="menuitem">
+              <span class="nav-btn__icon" aria-hidden="true">🎯</span>
+              <span class="nav-btn__text">Estadísticas</span>
+              <span class="nav-btn__badge" id="badge-estadisticas" hidden></span>
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-btn" data-module="chat" role="menuitem">
+              <span class="nav-btn__icon" aria-hidden="true">💬</span>
+              <span class="nav-btn__text">Chat Interno</span>
+              <span class="nav-btn__badge nav-btn__badge--alert" id="badge-chat">3</span>
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-btn" data-module="turnos" role="menuitem">
+              <span class="nav-btn__icon" aria-hidden="true">📅</span>
+              <span class="nav-btn__text" data-i18n="nav.turnos">Turnos & Horarios</span>
+              <span class="nav-btn__badge" id="badge-turnos" hidden></span>
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-btn" data-module="reportes" role="menuitem">
+              <span class="nav-btn__icon" aria-hidden="true">📋</span>
+              <span class="nav-btn__text" data-i18n="nav.reportes">Reportes Oficiales</span>
+              <span class="nav-btn__badge" id="badge-reportes" hidden></span>
+            </button>
+          </li>
+
+        </ul>
+      </nav>
+
+      <!-- Pie del sidebar -->
+      <div class="sidebar__footer">
+        <button class="nav-btn nav-btn--danger" id="btn-logout" role="menuitem" aria-label="Cerrar sesión">
+          <span class="nav-btn__icon" aria-hidden="true">🚪</span>
+          <span class="nav-btn__text" data-i18n="nav.logout">Cerrar Sesión</span>
+        </button>
+      </div>
+
+    </aside>
+
+
+    <!-- ÁREA DE CONTENIDO PRINCIPAL -->
+    <main class="main-content" id="main-content" role="main" aria-label="Contenido principal">
+
+      <!-- Barra superior -->
+      <div class="topbar" role="banner">
+        <div class="topbar__left">
+          <h2 class="topbar__title" id="page-title" aria-live="polite">Dashboard</h2>
+          <nav class="breadcrumb" aria-label="Ruta de navegación">
+            <span class="breadcrumb__item" data-i18n="app.name">Sistema Policial</span>
+            <span class="breadcrumb__sep" aria-hidden="true">›</span>
+            <span class="breadcrumb__item breadcrumb__item--active" id="breadcrumb-current">Dashboard</span>
+          </nav>
+        </div>
+        <div class="topbar__right">
+          <div class="topbar__clock" id="topbar-clock" aria-label="Hora actual" role="status"></div>
+          <div class="topbar__date" id="topbar-date" aria-label="Fecha actual"></div>
+          <button class="topbar__btn" id="btn-fullscreen" aria-label="Pantalla completa" title="Pantalla completa">⛶</button>
+          <div class="topbar__alert" role="status" aria-live="polite">
+            <span aria-hidden="true">🔔</span>
+            <span class="topbar__alert-count" id="alert-count">10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenedor donde se cargan los módulos -->
+      <div class="module-container" id="module-container" role="region" aria-label="Módulo activo" aria-live="polite">
+        <!-- Los módulos se cargan aquí dinámicamente -->
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- ============================================
+       MODAL GLOBAL (para alertas y confirmaciones)
+  ============================================ -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden style="display:none;">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modal-title">Confirmación</h3>
+        <button class="modal__close" id="modal-close" aria-label="Cerrar modal">✕</button>
+      </div>
+      <div class="modal__body" id="modal-body"></div>
+      <div class="modal__footer">
+        <button class="btn btn--ghost" id="modal-cancel" data-i18n="modal.cancel">Cancelar</button>
+        <button class="btn btn--primary" id="modal-confirm" data-i18n="modal.confirm">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================
+       TOAST DE NOTIFICACIONES
+  ============================================ -->
+  <div class="toast-container" id="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/accesibilidad.js"></script>
+  <script src="js/alertas.js"></script>
+  <script src="js/fichas.js"></script>
+  <script src="js/turnos.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/estadisticas.js"></script>
+
+</body>
+</html>

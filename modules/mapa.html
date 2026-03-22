@@ -1,0 +1,81 @@
+<!-- ================================================
+     MÓDULO: MAPA DE RIESGO
+================================================ -->
+
+<div class="modulo-mapa animate-fadeIn">
+
+  <div class="grid-2" style="grid-template-columns: 1fr 340px; gap: 1rem;">
+
+    <!-- Mapa principal -->
+    <div class="card">
+      <div class="card__header">
+        <div>
+          <div class="card__title" data-i18n="mapa.title">Mapa de Riesgo</div>
+          <div class="card__subtitle">República Dominicana — Zonas monitoreadas</div>
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <span class="badge badge--danger" style="animation: pulse 2s infinite;">🔴 3 Críticas</span>
+          <span class="badge badge--info" id="mapa-actualizado">Actualizado: ahora</span>
+        </div>
+      </div>
+      <div id="mapa-svg-container" class="mapa-container" role="img" aria-label="Mapa interactivo de zonas de riesgo en República Dominicana">
+        <!-- Se llena con JavaScript -->
+      </div>
+    </div>
+
+    <!-- Panel lateral de zonas -->
+    <div class="card" style="overflow-y: auto; max-height: 520px;">
+      <div class="card__header">
+        <div class="card__title">Zonas Monitoreadas</div>
+      </div>
+      <div id="zonas-lista" role="list" aria-label="Lista de zonas de riesgo">
+        <!-- Se llena con JavaScript -->
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<style>
+  .zona-item {
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .zona-item:hover,
+  .zona-item:focus {
+    border-color: var(--color-accent);
+    background-color: var(--color-hover);
+    outline: none;
+  }
+  .zona-item--critico { border-left: 3px solid #7c3aed; }
+  .zona-item--alto    { border-left: 3px solid #ef4444; }
+  .zona-item--medio   { border-left: 3px solid #f59e0b; }
+  .zona-item--bajo    { border-left: 3px solid #22c55e; }
+
+  .zona-item__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.3rem;
+  }
+  .zona-item__nombre {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .zona-item__info {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.5; }
+  }
+</style>

@@ -1,0 +1,161 @@
+<!-- ================================================
+     MÓDULO: REPORTES OFICIALES
+================================================ -->
+
+<div class="modulo-reportes animate-fadeIn">
+
+  <div class="grid-2" style="grid-template-columns: 320px 1fr; gap: 1rem; align-items: start;">
+
+    <!-- Panel de configuración del reporte -->
+    <div class="card">
+      <div class="card__header">
+        <div class="card__title" data-i18n="reportes.title">Generar Reporte</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reporte-tipo" data-i18n="reportes.tipo">Tipo de Reporte</label>
+        <select id="reporte-tipo" class="form-input form-select" aria-label="Tipo de reporte">
+          <option value="mensual" data-i18n="reportes.mensual">Reporte Mensual</option>
+          <option value="semanal" data-i18n="reportes.semanal">Reporte Semanal</option>
+          <option value="anual"   data-i18n="reportes.anual">Reporte Anual</option>
+          <option value="casos"   data-i18n="reportes.casos">Reporte de Casos</option>
+          <option value="detenidos" data-i18n="reportes.detenidos">Reporte de Detenidos</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reporte-periodo" data-i18n="reportes.periodo">Período</label>
+        <input
+          type="month"
+          id="reporte-periodo"
+          class="form-input"
+          aria-label="Período del reporte"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Unidad / Zona</label>
+        <select class="form-input form-select" aria-label="Seleccionar unidad">
+          <option value="">Todas las unidades</option>
+          <option value="dn">Distrito Nacional</option>
+          <option value="sde">Santo Domingo Este</option>
+          <option value="sdn">Santo Domingo Norte</option>
+          <option value="santiago">Santiago</option>
+        </select>
+      </div>
+
+      <div class="divider"></div>
+
+      <button id="btn-generar-reporte" class="btn btn--primary btn--full" aria-label="Generar reporte oficial">
+        <span aria-hidden="true">📋</span>
+        <span data-i18n="reportes.generar">Generar Reporte</span>
+      </button>
+
+      <button id="btn-exportar-reporte" class="btn btn--secondary btn--full mt-sm" aria-label="Exportar reporte como archivo">
+        <span aria-hidden="true">💾</span>
+        <span data-i18n="reportes.exportar">Exportar (.txt)</span>
+      </button>
+
+      <!-- Info de accesibilidad -->
+      <div style="margin-top: 1rem; padding: 0.75rem; background: var(--color-surface-2); border-radius: 8px; font-size: 0.75rem; color: var(--color-text-muted);">
+        <strong>ℹ️ Nota:</strong> Los reportes exportados son archivos de texto plano compatibles con lectores de pantalla.
+      </div>
+    </div>
+
+    <!-- Vista previa del reporte -->
+    <div class="card" style="min-height: 500px;">
+      <div class="card__header">
+        <div class="card__title">Vista Previa del Reporte</div>
+        <span class="badge badge--neutral" id="reporte-estado">Sin generar</span>
+      </div>
+
+      <div id="reporte-preview" role="region" aria-label="Vista previa del reporte generado" aria-live="polite">
+        <div class="empty-state">
+          <div class="empty-state__icon">📋</div>
+          <div class="empty-state__title">Reporte no generado</div>
+          <div class="empty-state__desc">Selecciona el tipo de reporte y haz clic en "Generar Reporte"</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<style>
+  /* Estilos del documento de reporte */
+  .reporte-doc {
+    font-size: 0.82rem;
+    color: var(--color-text);
+  }
+
+  .reporte-doc__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--color-accent);
+    margin-bottom: 1rem;
+  }
+
+  .reporte-doc__title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-accent);
+    text-align: center;
+    padding: 0.75rem;
+    background-color: var(--color-surface-2);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .reporte-doc__section {
+    margin-bottom: 1.25rem;
+  }
+
+  .reporte-doc__section h3 {
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .reporte-doc__footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin-top: 1rem;
+  }
+
+  .reporte-stat {
+    text-align: center;
+    padding: 0.75rem;
+    background-color: var(--color-surface-2);
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+  }
+
+  .reporte-stat__valor {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  .reporte-stat__label {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>

@@ -1,0 +1,89 @@
+<!-- ================================================
+     MÓDULO: GESTIÓN DE CASOS
+================================================ -->
+
+<div class="modulo-casos animate-fadeIn">
+
+  <!-- Barra de herramientas -->
+  <div class="modulo-toolbar">
+    <div class="search-bar" role="search" aria-label="Buscar casos">
+      <span class="search-bar__icon" aria-hidden="true">🔍</span>
+      <input
+        type="search"
+        id="casos-search"
+        class="search-bar__input"
+        placeholder="Buscar por ID, tipo, descripción..."
+        aria-label="Buscar casos"
+        autocomplete="off"
+      />
+    </div>
+
+    <select id="casos-estado-filter" class="form-input form-select" style="width:160px;" aria-label="Filtrar por estado">
+      <option value="">Todos los estados</option>
+      <option value="abierto">Abierto</option>
+      <option value="en_proceso">En Proceso</option>
+      <option value="pendiente">Pendiente</option>
+      <option value="cerrado">Cerrado</option>
+    </select>
+
+    <button id="btn-nuevo-caso" class="btn btn--primary" aria-label="Registrar nuevo caso">
+      <span aria-hidden="true">➕</span>
+      <span data-i18n="casos.nuevo">Nuevo Caso</span>
+    </button>
+  </div>
+
+  <!-- Tabla de casos -->
+  <div class="card mt-md">
+    <div class="card__header">
+      <div>
+        <div class="card__title" data-i18n="casos.title">Gestión de Casos</div>
+        <div class="card__subtitle">Registro completo de casos activos e históricos</div>
+      </div>
+      <span class="badge badge--info" id="casos-count">12 casos</span>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table" role="grid" aria-label="Tabla de casos">
+        <thead>
+          <tr>
+            <th scope="col" data-i18n="casos.id">ID Caso</th>
+            <th scope="col" data-i18n="casos.tipo">Tipo</th>
+            <th scope="col" data-i18n="casos.descripcion">Descripción</th>
+            <th scope="col" data-i18n="casos.estado">Estado</th>
+            <th scope="col" data-i18n="casos.fecha">Fecha</th>
+            <th scope="col" data-i18n="casos.investigador">Investigador</th>
+            <th scope="col" data-i18n="casos.acciones">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="casos-tbody">
+          <!-- Se llena con JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="pagination" role="navigation" aria-label="Paginación de casos">
+      <button class="page-btn" aria-label="Página anterior">‹</button>
+      <button class="page-btn page-btn--active" aria-current="page" aria-label="Página 1">1</button>
+      <button class="page-btn" aria-label="Página 2">2</button>
+      <button class="page-btn" aria-label="Página siguiente">›</button>
+    </div>
+  </div>
+
+</div>
+
+
+<style>
+  .modulo-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .modulo-toolbar .search-bar { flex: 1; min-width: 200px; }
+  .form-grid-modal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+</style>

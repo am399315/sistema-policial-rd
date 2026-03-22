@@ -1,0 +1,109 @@
+<!-- ================================================
+     MÓDULO: PATRULLAS & PERSONAL
+================================================ -->
+
+<div class="modulo-patrullas animate-fadeIn">
+
+  <!-- Barra de herramientas -->
+  <div class="modulo-toolbar">
+    <div class="search-bar" role="search" aria-label="Buscar patrullas">
+      <span class="search-bar__icon" aria-hidden="true">🔍</span>
+      <input
+        type="search"
+        id="patrullas-search"
+        class="search-bar__input"
+        placeholder="Buscar por unidad, zona..."
+        aria-label="Buscar patrullas"
+        autocomplete="off"
+      />
+    </div>
+
+    <select id="patrullas-estado-filter" class="form-input form-select" style="width:160px;" aria-label="Filtrar por estado">
+      <option value="">Todos los estados</option>
+      <option value="activa">Activa</option>
+      <option value="en_servicio">En Servicio</option>
+      <option value="inactiva">Inactiva</option>
+    </select>
+
+    <button id="btn-nueva-patrulla" class="btn btn--primary" aria-label="Registrar nueva patrulla">
+      <span aria-hidden="true">➕</span>
+      <span data-i18n="patrullas.nueva">Nueva Patrulla</span>
+    </button>
+  </div>
+
+  <!-- Resumen de patrullas -->
+  <div class="grid-4 mt-md mb-md">
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">🟢</div>
+      <div class="stat-card__value">4</div>
+      <div class="stat-card__label">Patrullas Activas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">🔵</div>
+      <div class="stat-card__value">3</div>
+      <div class="stat-card__label">En Servicio</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">⚫</div>
+      <div class="stat-card__value">1</div>
+      <div class="stat-card__label">Inactivas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">👮</div>
+      <div class="stat-card__value">16</div>
+      <div class="stat-card__label">Oficiales Activos</div>
+    </div>
+  </div>
+
+  <!-- Tabla de patrullas -->
+  <div class="card">
+    <div class="card__header">
+      <div>
+        <div class="card__title" data-i18n="patrullas.title">Patrullas & Personal</div>
+        <div class="card__subtitle">Estado actual de todas las unidades</div>
+      </div>
+      <span class="badge badge--success">8 unidades</span>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table" role="grid" aria-label="Tabla de patrullas">
+        <thead>
+          <tr>
+            <th scope="col" data-i18n="patrullas.id">ID</th>
+            <th scope="col" data-i18n="patrullas.unidad">Unidad</th>
+            <th scope="col" data-i18n="patrullas.zona">Zona</th>
+            <th scope="col" data-i18n="patrullas.personal">Personal</th>
+            <th scope="col" data-i18n="patrullas.vehiculo">Vehículo</th>
+            <th scope="col" data-i18n="patrullas.estado">Estado</th>
+          </tr>
+        </thead>
+        <tbody id="patrullas-tbody">
+          <!-- Se llena con JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination" role="navigation" aria-label="Paginación de patrullas">
+      <button class="page-btn" aria-label="Página anterior">‹</button>
+      <button class="page-btn page-btn--active" aria-current="page">1</button>
+      <button class="page-btn" aria-label="Página siguiente">›</button>
+    </div>
+  </div>
+
+</div>
+
+
+<style>
+  .modulo-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .modulo-toolbar .search-bar { flex: 1; min-width: 200px; }
+  .form-grid-modal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+</style>

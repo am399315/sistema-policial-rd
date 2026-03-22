@@ -1,0 +1,105 @@
+<!-- ================================================
+     MÓDULO: DETENIDOS & FICHEROS
+================================================ -->
+
+<div class="modulo-detenidos animate-fadeIn">
+
+  <!-- Barra de herramientas -->
+  <div class="modulo-toolbar">
+    <div class="search-bar" role="search" aria-label="Buscar detenidos">
+      <span class="search-bar__icon" aria-hidden="true">🔍</span>
+      <input
+        type="search"
+        id="detenidos-search"
+        class="search-bar__input"
+        placeholder="Buscar por nombre, cédula, cargo..."
+        aria-label="Buscar detenidos"
+        autocomplete="off"
+      />
+    </div>
+
+    <select id="detenidos-estado-filter" class="form-input form-select" style="width:160px;" aria-label="Filtrar por estado">
+      <option value="">Todos los estados</option>
+      <option value="detenido">Detenido</option>
+      <option value="procesado">Procesado</option>
+      <option value="liberado">Liberado</option>
+    </select>
+
+    <button id="btn-nuevo-detenido" class="btn btn--primary" aria-label="Registrar nuevo detenido">
+      <span aria-hidden="true">➕</span>
+      <span data-i18n="detenidos.nuevo">Nuevo Detenido</span>
+    </button>
+  </div>
+
+  <!-- Tarjetas resumen -->
+  <div class="grid-3 mt-md mb-md">
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">🔴</div>
+      <div class="stat-card__value">5</div>
+      <div class="stat-card__label">Actualmente Detenidos</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">🟡</div>
+      <div class="stat-card__value">3</div>
+      <div class="stat-card__label">En Proceso Judicial</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__icon" aria-hidden="true">🟢</div>
+      <div class="stat-card__value">2</div>
+      <div class="stat-card__label">Liberados este mes</div>
+    </div>
+  </div>
+
+  <!-- Tabla de detenidos -->
+  <div class="card">
+    <div class="card__header">
+      <div>
+        <div class="card__title" data-i18n="detenidos.title">Detenidos & Ficheros</div>
+        <div class="card__subtitle">Registro completo de personas detenidas</div>
+      </div>
+      <span class="badge badge--danger">8 registros</span>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table" role="grid" aria-label="Tabla de detenidos">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col" data-i18n="detenidos.nombre">Nombre</th>
+            <th scope="col" data-i18n="detenidos.cargo">Cargo</th>
+            <th scope="col" data-i18n="detenidos.fecha_detencion">Fecha Detención</th>
+            <th scope="col" data-i18n="detenidos.oficial">Oficial</th>
+            <th scope="col" data-i18n="detenidos.estado">Estado</th>
+            <th scope="col" data-i18n="casos.acciones">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="detenidos-tbody">
+          <!-- Se llena con JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination" role="navigation" aria-label="Paginación de detenidos">
+      <button class="page-btn" aria-label="Página anterior">‹</button>
+      <button class="page-btn page-btn--active" aria-current="page">1</button>
+      <button class="page-btn" aria-label="Página siguiente">›</button>
+    </div>
+  </div>
+
+</div>
+
+
+<style>
+  .modulo-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .modulo-toolbar .search-bar { flex: 1; min-width: 200px; }
+  .form-grid-modal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+</style>
